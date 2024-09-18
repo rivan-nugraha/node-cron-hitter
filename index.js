@@ -31,7 +31,7 @@ cron.schedule('30 2 * * *', () => {
     }
 });
 
-cron.schedule('* 17 * * *', () => {
+cron.schedule('30 2 * * *', () => {
     console.log("Hit Endpoint Ulang Tahun");
     const datetime = new Date().toISOString().split("T");
     const date = datetime[0];
