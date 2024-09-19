@@ -1,0 +1,4 @@
+// Put IP And Endpoint Here
+exports.URL_ULANG_TAHUN=[
+    "",
+]

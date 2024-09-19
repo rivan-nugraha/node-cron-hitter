@@ -1,1 +1,6 @@
+/node_modules
+/logs
+
 .env
+url-hutang.js
+url-ulang-tahun.js
