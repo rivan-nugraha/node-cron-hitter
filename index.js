@@ -35,11 +35,13 @@ cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
     for (const uri of URL_HUTANG) {
         axiosInstance.post(uri, {tgl_system: date})
             .then((res) => {
+                console.log(res);
                 logToFile(res.data);
             })
             .catch((err) => {
+                console.log(res);
                 logToFile(err.response.data);
-            })
+            });
     }
     logToFile("SEND NOTIF HUTANG");
 });
@@ -50,11 +52,13 @@ cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
     for (const uri of URL_ULANG_TAHUN) {
         axiosInstance.post(uri, {tgl_system: date})
         .then((res) => {
+            console.log(res);
             logToFile(res.data);
         })
         .catch((err) => {
+            console.log(res);
             logToFile(err.response.data);
-        })
+        });
     }
     logToFile("SEND NOTIF ULANG TAHUN EXECUTED");
 });
@@ -62,7 +66,8 @@ cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
 // Server setup
 app.get('/check-node-cron', (req, res) => {
     logToFile("Check Node-Cron");
-  res.send('Node-cron Is Running');
+    console.log(res);
+    res.send('Node-cron Is Running');
 });
 
 app.listen(process.env.PORT, () => {
