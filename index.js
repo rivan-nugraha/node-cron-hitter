@@ -4,6 +4,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const https = require('https');
 const dotenv = require('dotenv');
+const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
 
@@ -18,6 +19,10 @@ function logToFile(message) {
   });
 }
 
+function localDateString (date) {
+    const tanggal = date ? new Date(date) : new Date();
+    return moment.tz(tanggal, "Asia/Jakarta").format("YYYY-MM-DD");
+}
 
 const express = require('express');
 const app = express();
@@ -30,7 +35,7 @@ const axiosInstance = axios.create({
 });
 
 cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
-    const datetime = new Date().toISOString().split("T");
+    const datetime = localDateString(new Date.now());
     const date = datetime[0];
     for (const uri of URL_HUTANG) {
         axiosInstance.post(uri, {tgl_system: date})
@@ -47,7 +52,7 @@ cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
 });
 
 cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
-    const datetime = new Date().toISOString().split("T");
+    const datetime = localDateString(new Date.now());
     const date = datetime[0];
     for (const uri of URL_ULANG_TAHUN) {
         axiosInstance.post(uri, {tgl_system: date})
@@ -63,7 +68,7 @@ cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
     logToFile("SEND NOTIF ULANG TAHUN EXECUTED");
 });
 
-// Server setup
+// Server Setup
 app.get('/check-node-cron', (req, res) => {
     logToFile("Check Node-Cron");
     console.log(res);
