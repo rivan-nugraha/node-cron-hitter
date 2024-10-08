@@ -4,7 +4,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const https = require('https');
 const dotenv = require('dotenv');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const fs = require('fs');
 const path = require('path');
 
