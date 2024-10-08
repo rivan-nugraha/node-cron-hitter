@@ -36,7 +36,7 @@ const axiosInstance = axios.create({
 
 cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
     const datetime = localDateString();
-    const date = datetime[0];
+    const date = datetime;
     for (const uri of URL_HUTANG) {
         axiosInstance.post(uri, {tgl_system: date})
             .then((res) => {
@@ -53,7 +53,7 @@ cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
 
 cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
     const datetime = localDateString();
-    const date = datetime[0];
+    const date = datetime;
     for (const uri of URL_ULANG_TAHUN) {
         axiosInstance.post(uri, {tgl_system: date})
         .then((res) => {
@@ -78,7 +78,8 @@ app.get('/check-node-cron', (req, res) => {
 app.get('/check-cron-hutang-script', (req, res) => {
     try {
         const datetime = localDateString();
-        const date = datetime[0];
+        console.log(datetime);
+        const date = datetime;
         for (const uri of URL_HUTANG) {
             axiosInstance.post(uri, {tgl_system: date})
                 .then((res) => {
