@@ -93,6 +93,7 @@ app.get('/check-cron-hutang-script', (req, res) => {
         logToFile("SEND NOTIF HUTANG");
         res.send("Script Is Running");   
     } catch (error) {
+        console.log(error);
         res.send(error);
     }
 });
