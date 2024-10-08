@@ -75,6 +75,28 @@ app.get('/check-node-cron', (req, res) => {
     res.send('Node-cron Is Running');
 });
 
+app.get('/check-cron-hutang-script', (req, res) => {
+    try {
+        const datetime = localDateString(new Date.now());
+        const date = datetime[0];
+        for (const uri of URL_HUTANG) {
+            axiosInstance.post(uri, {tgl_system: date})
+                .then((res) => {
+                    console.log(res);
+                    logToFile(res.data);
+                })
+                .catch((err) => {
+                    console.log(res);
+                    logToFile(err.response.data);
+                });
+        }
+        logToFile("SEND NOTIF HUTANG");
+        res.send("Script Is Running");   
+    } catch (error) {
+        res.send(error);
+    }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is Running On Port ${process.env.PORT}`);
 });
