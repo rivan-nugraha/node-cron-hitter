@@ -35,10 +35,33 @@ const axiosInstance = axios.create({
 });
 
 cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
-    const datetime = localDateString();
-    const date = datetime;
-    for (const uri of URL_HUTANG) {
-        axiosInstance.post(uri, {tgl_system: date})
+    try {
+        const datetime = localDateString();
+        const date = datetime;
+        for (const uri of URL_HUTANG) {
+            axiosInstance.post(uri, {tgl_system: date})
+                .then((res) => {
+                    console.log(res);
+                    logToFile(res.data);
+                })
+                .catch((err) => {
+                    console.log(res);
+                    logToFile(err.response.data);
+                });
+        }
+        logToFile("SEND NOTIF HUTANG EXECUTED");
+        console.log("SEND NOTIF HUTANG EXECUTED");
+    } catch(err) {
+        console.log(err);
+    }
+});
+
+cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
+    try{
+        const datetime = localDateString();
+        const date = datetime;
+        for (const uri of URL_ULANG_TAHUN) {
+            axiosInstance.post(uri, {tgl_system: date})
             .then((res) => {
                 console.log(res);
                 logToFile(res.data);
@@ -47,25 +70,12 @@ cron.schedule(process.env.TIME_NOTIF_HUTANG, () => {
                 console.log(res);
                 logToFile(err.response.data);
             });
+        }
+        logToFile("SEND NOTIF ULANG TAHUN EXECUTED");
+        console.log("SEND NOTIF ULANG TAHUN EXECUTED");
+    }catch(err){
+        console.log(err)
     }
-    logToFile("SEND NOTIF HUTANG");
-});
-
-cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
-    const datetime = localDateString();
-    const date = datetime;
-    for (const uri of URL_ULANG_TAHUN) {
-        axiosInstance.post(uri, {tgl_system: date})
-        .then((res) => {
-            console.log(res);
-            logToFile(res.data);
-        })
-        .catch((err) => {
-            console.log(res);
-            logToFile(err.response.data);
-        });
-    }
-    logToFile("SEND NOTIF ULANG TAHUN EXECUTED");
 });
 
 // Server Setup
@@ -78,7 +88,6 @@ app.get('/check-node-cron', (req, res) => {
 app.get('/check-cron-hutang-script', (req, res) => {
     try {
         const datetime = localDateString();
-        console.log(datetime);
         const date = datetime;
         for (const uri of URL_HUTANG) {
             axiosInstance.post(uri, {tgl_system: date})
