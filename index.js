@@ -1,5 +1,6 @@
 const { URL_HUTANG } = require('./url-hutang');
 const { URL_ULANG_TAHUN } = require('./url-ulang-tahun');
+const { URL_PROMO } = require('./url-send-promo');
 const cron = require('node-cron');
 const axios = require('axios');
 const https = require('https');
@@ -77,6 +78,23 @@ cron.schedule(process.env.TIME_NOTIF_ULANG_TAHUN, () => {
         console.log(err)
     }
 });
+
+cron.schedule(process.env.TIME_NOTIF_SEND_PROMO, () => {
+    const datetime = localDateString();
+    const date = datetime;
+    for (const uri of URL_PROMO) {
+        axiosInstance.post(uri, {tgl_system: date})
+           .then((res) => {
+                console.log(res);
+                logToFile(res.data);
+            })
+           .catch((err) => {
+                console.log(res);
+                logToFile(err.response.data);
+            });
+    }
+    logToFile("SEND NOTIF SEND PROMO");
+})
 
 // Server Setup
 app.get('/check-node-cron', (req, res) => {

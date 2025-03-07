@@ -1,4 +1,5 @@
 // Put IP And Endpoint Here
+// https://IP:PORT/api/v1/hutang/send-notif-jatuh-tempo
 exports.URL_HUTANG=[
     "",
 ]

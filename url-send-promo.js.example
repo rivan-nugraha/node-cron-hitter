@@ -1,0 +1,5 @@
+// Put IP And Endpoint Here
+// https://IP:PORT/api/v1/promo-wablas/send-promo
+exports.URL_PROMO=[
+    "",
+]

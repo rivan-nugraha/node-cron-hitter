@@ -6,7 +6,11 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "cp ./url-hutang.js.example ./url-hutang.js && cp ./url-ulang-tahun.js.example ./url-ulang-tahun.js && cp ./.env.example ./.env"
+    "setup": "cp ./url-hutang.js.example ./url-hutang.js && cp ./url-ulang-tahun.js.example ./url-ulang-tahun.js && cp ./url-send-promo.js.example ./url-send-promo.js && cp ./.env.example ./.env",
+    "setup-promo": "cp ./url-send-promo.js.example ./url-send-promo.js",
+    "setup-ulang-tahun": "cp ./url-ulang-tahun.js.example ./url-ulang-tahun.js",
+    "setup-hutang": "cp ./url-hutang.js.example ./url-hutang.js",
+    "setup-env": "cp ./.env.example ./.env"
   },
   "author": "",
   "license": "ISC",
