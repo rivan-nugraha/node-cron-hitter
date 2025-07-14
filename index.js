@@ -89,7 +89,7 @@ cron.schedule(process.env.TIME_NOTIF_SEND_PROMO, () => {
                 logToFile(res.data);
             })
            .catch((err) => {
-                console.log(res);
+                console.log(err);
                 logToFile(err.response.data);
             });
     }
@@ -99,7 +99,6 @@ cron.schedule(process.env.TIME_NOTIF_SEND_PROMO, () => {
 // Server Setup
 app.get('/check-node-cron', (req, res) => {
     logToFile("Check Node-Cron");
-    console.log(res);
     res.send('Node-cron Is Running');
 });
 
@@ -114,7 +113,7 @@ app.get('/check-cron-hutang-script', (req, res) => {
                     logToFile(res.data);
                 })
                 .catch((err) => {
-                    console.log(res);
+                    console.log(err);
                     logToFile(err.response.data);
                 });
         }
