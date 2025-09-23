@@ -11,6 +11,13 @@ const path = require('path');
 
 const logFilePath = path.join(__dirname, '/logs/execution.log');
 
+if (!fs.existsSync(path.dirname(logFilePath))) {
+    fs.mkdirSync(path.dirname(logFilePath), { recursive: true });
+}
+if (!fs.existsSync(logFilePath)) {
+    fs.writeFileSync(logFilePath, '');
+}
+
 function logToFile(message) {
   const timeStampedMessage = `[${new Date().toISOString()}] ${message}\n`;
   fs.appendFile(logFilePath, timeStampedMessage, (err) => {
